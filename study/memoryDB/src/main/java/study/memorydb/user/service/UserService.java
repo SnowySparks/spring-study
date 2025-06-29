@@ -27,11 +27,18 @@ public class UserService {
     }
 
 
-    public void delete(Long id) {
-        userRepository.delete(id);
+    public void delete(UserEntity id) {
+//        userRepository.delete(id);
     }
 
     public List<UserEntity> filterUpScore(int score) {
-        return userRepository.findAllScoreGreaterThan(score);
+
+        return userRepository.findAllByScoreGreaterThan(score);
     }
+
+
+    public List<UserEntity> filterRangeScore(int minScore, int maxScore) {
+        return userRepository.score(minScore, maxScore);
+    }
+
 }

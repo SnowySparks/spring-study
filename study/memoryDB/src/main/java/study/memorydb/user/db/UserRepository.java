@@ -1,18 +1,22 @@
 package study.memorydb.user.db;
 
-import org.springframework.stereotype.Repository;
-import study.memorydb.db.SimpleDataRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import study.memorydb.user.model.UserEntity;
 
 import java.util.List;
 
-@Repository
-public class UserRepository extends SimpleDataRepository<UserEntity, Long> {
 
-    public List<UserEntity> findAllScoreGreaterThan(int score) {
-        return this.findAll().stream()
-                .filter(user -> user.getScore() >= score)
-                .toList();
-    }
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    public List<UserEntity> findAllByScoreGreaterThan(int score);
+
+    public List<UserEntity> findAllByScoreGreaterThanEqualAndScoreLessThanEqual(int minScore, int maxScore);
+
+    @Query(
+            value = "select * from user as u where u.score >= :min AND u.score <= :max",
+            nativeQuery = true
+    )
+    List<UserEntity> score(@Param(value = "min") int minScore, @Param(value = "max") int maxScore);
 }

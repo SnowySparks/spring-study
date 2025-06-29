@@ -1,10 +1,10 @@
 package study.memorydb.book.db.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import study.memorydb.book.db.entity.BookEntity;
-import study.memorydb.db.SimpleDataRepository;
 
 @Repository
-public class BookRepository extends SimpleDataRepository<BookEntity, Long> {
+public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
 }

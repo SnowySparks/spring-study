@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: simple-board
+  datasource:
+    url: jdbc:mysql://localhost:3306/simple_board?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root1234!!
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: validate

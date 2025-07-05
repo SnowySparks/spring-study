@@ -2,6 +2,10 @@ package project.simpleboard.reply.db;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import project.simpleboard.post.db.PostEntity;
 
 import java.time.LocalDateTime;
@@ -13,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class ReplyEntity {
 
     @Id
@@ -21,8 +26,6 @@ public class ReplyEntity {
 
     @ManyToOne()
     @JoinColumn(name = "post_id")
-    @JsonIgnore
-    @ToString.Exclude
     private PostEntity post;
 
     @Column(nullable = false)
@@ -40,6 +43,6 @@ public class ReplyEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime repliedAt;
 }
